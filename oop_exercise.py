@@ -31,11 +31,22 @@ class GenomicFeature:
         return f"{type(self).__name__} {self.chromosome}:{self.start}-{self.end}({self.strand})"
 
 
+# ==========================================
+# Task 2: Exon subclass
+# ==========================================
+class Exon(GenomicFeature):
+    def __init__(self, chromosome, start, end, strand, exon_number):
+        super().__init__(chromosome, start, end, strand)
+        self.exon_number = int(exon_number)
+        
+    def describe(self):
+        return f"{super().describe()} exon #{self.exon_number}"
+
 
 # ==========================================
 # Main Execution Blocks
 # ==========================================
-def run_task1():
+def run_task1_and_2():
     print("--- Task 1 Tests ---")
     a = GenomicFeature("chr1", 1000, 5000, "+")
     b = GenomicFeature("chr1", 4800, 6000, "+")
@@ -50,6 +61,16 @@ def run_task1():
     except ValueError as e:
         print(f"Caught expected ValueError: {e}")
 
+    print("\n--- Task 2 Tests ---")
+    features = [
+        GenomicFeature("chr1", 1000, 5000, "+"),
+        Exon("chr1", 1000, 1200, "+", 1),
+        Exon("chr1", 3000, 3300, "+", 2),
+    ]
+    for feature in features:
+        print(feature.describe())
+    print()
+
  
 if __name__ == "__main__":
-    run_task1()
+    run_task1_and_2()
